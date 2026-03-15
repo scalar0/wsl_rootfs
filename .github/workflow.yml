@@ -1,0 +1,71 @@
+name: Build WSL Rootfs
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: '0 4 * * 1'
+
+permissions:
+    contents: write
+
+concurrency:
+    group: build-wsl-rootfs-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    build-rootfs-release:
+        runs-on: ubuntu-latest
+        timeout-minutes: 120
+
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 1
+
+            - name: Set release metadata
+              id: meta
+              run: |
+                  release_date="$(date -u +%Y-%m-%d)"
+                  release_tag="wsl-rootfs-${release_date}"
+                  tarball="wsl_rootfs-rootfs-${release_date}.tar"
+
+                  {
+                    echo "release_date=${release_date}"
+                    echo "release_tag=${release_tag}"
+                    echo "tarball=${tarball}"
+                  } >> "$GITHUB_OUTPUT"
+
+            - name: Build rootfs image
+              run: docker build -t wsl_rootfs .
+
+            - name: Export rootfs tarball
+              run: |
+                  cid="$(docker create wsl_rootfs)"
+                  trap 'docker rm -f "$cid" >/dev/null 2>&1 || true' EXIT
+                  docker export "$cid" -o "${{ steps.meta.outputs.tarball }}"
+
+            - name: Write import instructions
+              run: |
+                  cat > IMPORT-WSL.txt <<EOF
+                  Import this rootfs into WSL with:
+
+                  wsl --import BootstrapWSL C:\\WSL\\BootstrapWSL ${{ steps.meta.outputs.tarball }}
+                  EOF
+
+            - name: Create or update weekly release
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  RELEASE_TAG: ${{ steps.meta.outputs.release_tag }}
+                  RELEASE_DATE: ${{ steps.meta.outputs.release_date }}
+                  TARBALL: ${{ steps.meta.outputs.tarball }}
+              run: |
+                  if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+                    gh release upload "$RELEASE_TAG" "$TARBALL" IMPORT-WSL.txt --clobber
+                  else
+                    gh release create "$RELEASE_TAG" \
+                      "$TARBALL" \
+                      IMPORT-WSL.txt \
+                      --title "WSL rootfs ${RELEASE_DATE}" \
+                      --notes "Weekly WSL rootfs export built from ${GITHUB_SHA}."
+                  fi

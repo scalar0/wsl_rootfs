@@ -1,0 +1,4 @@
+[user]
+    email = "op://VCS/Github/private-email"
+    name = "op://VCS/Github/private-email"
+    signingkey = "op://VCS/r2ljmuc3l3nkdl6qu2awermwmy/public key"

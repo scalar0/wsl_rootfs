@@ -1,0 +1,12 @@
+.bash_aliases
+.bashrc
+.cargo/config.toml
+.codex/config.toml
+.config/git/attributes
+.config/git/op.gitconfig
+.config/hooks/.gitcommit
+.config/htop/htoprc
+.config/op/plugins.sh
+.gitconfig
+.gkg/mcp.settings.json
+.profile

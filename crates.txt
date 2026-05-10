@@ -1,13 +1,8 @@
-coreutils
 ripgrep
-uv
 cargo-nextest
 ast-grep
-cargo-depgraph
 cargo-llvm-cov
 cargo-mutants
-codelldb-launch
 mergiraf
 sccache
 wild-linker
-xan

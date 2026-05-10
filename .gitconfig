@@ -1,6 +1,6 @@
 [commit]
     gpgsign = true
-    template = ~/.config/hooks/.gitcommit
+    template = ~/.config/git/.gitcommit
 
 [gpg]
     format = ssh

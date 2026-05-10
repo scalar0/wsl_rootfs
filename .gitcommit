@@ -1,0 +1,20 @@
+# Placeholders are prefixed with $
+# Placeholders in brackets [] are optional
+#
+$type[($scope)][!]: $subject
+# - $type: one of [feat|fix|refactor|fmt|test|docs|build|chore]
+# - $subject: 1-50 chars, starts lower-case, no trailing dot
+# - optional $scope: [A-Za-z0-9/-]+, enclosed in ()
+# - optional breaking bang: add ! right after $type or $scope if breaking
+
+[$body]
+# - $body: Explain what and why, not how
+# - Wrap lines at ~72 chars
+# - Use concise lists starting with "-"
+# - Reference key files or modules when helpful
+
+[$footers]
+# - One trailer per line
+# - Wrap lines at ~72 chars
+# - If breaking, add a BREAKING CHANGE: footer describing impact/migration
+# - Other common trailers: Closes:, Refs:

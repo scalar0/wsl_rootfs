@@ -1,8 +1,0 @@
-ripgrep
-cargo-nextest
-ast-grep
-cargo-llvm-cov
-cargo-mutants
-mergiraf
-sccache
-wild-linker

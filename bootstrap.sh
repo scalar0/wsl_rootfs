@@ -17,7 +17,7 @@ mapfile -t arr < <(read_manifest "$file")
 
 upgrade_system() {
 apt-get update && \
-apt-get install -y build-essential software-properties-common jq gh op git git-lfs && \
+apt-get install -y build-essential software-properties-common pkg-config libssl-dev jq gh 1password-cli git git-lfs && \
 apt-get upgrade -y && \
 apt-get full-upgrade -y && \
 apt-get autoremove -y
@@ -82,16 +82,13 @@ sh -s -- -y -v --default-toolchain="stable" --component="rust-analyzer,llvm-tool
 # shellcheck disable=SC1090
 . "$HOME/.cargo/env"
 rustup update
+cargo install --locked ripgrep cargo-nextest ast-grep cargo-llvm-cov cargo-mutants mergiraf sccache wild-linker
 
-local -a crates=()
-map_manifest "$repo_root/manifests/crates.txt" crates
-if [ "${#crates[@]}" -gt 0 ]; then
-cargo install "${crates[@]}"
-fi
 }
 
 install_py_tooling() {
 curl -LsSf https://astral.sh/uv/install.sh | sh && \
+source $HOME/.local/bin/env && \
 uv python update-shell && \
 uv python install --managed-python --default
 }
@@ -115,10 +112,15 @@ curl -sS https://starship.rs/install.sh | sh -s -- -y && \
 echo 'eval "$(starship init bash)"' >> "$HOME/.bashrc"
 }
 
+configure_agents() {
+git clone git@github.com:scalar0/skills.git "$HOME/.agents/skills" && \
+git clone git@github.com:scalar0/rules.git "$HOME/.codex/rules"
+}
+
+
 main() {
 setup_keyring
 upgrade_system
-install_git_tooling
 install_rust_tooling
 install_py_tooling
 install_node_tooling

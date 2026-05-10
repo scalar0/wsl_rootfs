@@ -83,7 +83,6 @@ sh -s -- -y -v --default-toolchain="stable" --component="rust-analyzer,llvm-tool
 . "$HOME/.cargo/env"
 rustup update
 cargo install --locked ripgrep cargo-nextest ast-grep cargo-llvm-cov cargo-mutants mergiraf sccache wild-linker
-
 }
 
 install_py_tooling() {
@@ -104,6 +103,7 @@ export NVM_DIR="$HOME/.nvm"
 
 nvm install --latest-npm && \
 nvm use node && \
+nvm alias default node && \
 npm install -g @openai/codex prettier lefthook
 }
 
@@ -126,6 +126,7 @@ install_py_tooling
 install_node_tooling
 install_starfish
 configure_git
+configure_agents
 cp ./.bash_aliases "$HOME/.bash_aliases"
 }
 

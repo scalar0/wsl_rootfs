@@ -107,6 +107,31 @@ nvm alias default node && \
 npm install -g @openai/codex prettier lefthook
 }
 
+install_bazel() {
+
+  local -r URL="https://github.com/bazelbuild"
+  local -r VERSION="releases/latest/download"
+  local -r PLATFORM="linux-amd64"
+  mkdir -p ~/.local/bin
+
+  curl -L -o ~/.local/bin/bazel \
+  "$URL/bazelisk/$VERSION/bazelisk-$PLATFORM" && \
+  chmod +x ~/.local/bin/bazel && bazel version
+
+  curl -L -o ~/.local/bin/buildifier \
+  "$URL/buildtools/$VERSION/buildifier-$PLATFORM" && \
+  chmod +x ~/.local/bin/buildifier && buildifier --version
+
+  curl -L -o ~/.local/bin/buildozer \
+  "$URL/buildtools/$VERSION/buildozer-$PLATFORM" && \
+  chmod +x ~/.local/bin/buildozer && buildozer --version
+
+  curl -L -o ~/.local/bin/starpls \
+  "$URL/starpls/$VERSION/starpls-$PLATFORM" && \
+  chmod +x ~/.local/bin/starpls && starpls version
+}
+
+
 install_starfish() {
 curl -sS https://starship.rs/install.sh | sh -s -- -y && \
 echo 'eval "$(starship init bash)"' >> "$HOME/.bashrc"
@@ -124,6 +149,7 @@ upgrade_system
 install_rust_tooling
 install_py_tooling
 install_node_tooling
+install_bazel
 install_starfish
 configure_git
 configure_agents

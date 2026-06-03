@@ -127,7 +127,7 @@ install_bazel() {
   chmod +x ~/.local/bin/buildozer && buildozer --version
 
   curl -L -o ~/.local/bin/starpls \
-  "$URL/starpls/$VERSION/starpls-$PLATFORM" && \
+  "https://github.com/withered-magic/starpls/$VERSION/starpls-$PLATFORM" && \
   chmod +x ~/.local/bin/starpls && starpls version
 }
 
@@ -144,16 +144,7 @@ git clone git@github.com:scalar0/rules.git "$HOME/.codex/rules"
 
 
 main() {
-setup_keyring
-upgrade_system
-install_rust_tooling
-install_py_tooling
-install_node_tooling
 install_bazel
-install_starfish
-configure_git
-configure_agents
-cp ./.bash_aliases "$HOME/.bash_aliases"
 }
 
 main "$@"

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Development setup inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "createdAt",
+    "home",
+    "commands",
+    "windowsLinks"
+  ],
+  "properties": {
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The UTC capture time."
+    },
+    "home": {
+      "type": "string",
+      "description": "The inspected home directory."
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "description": "Each command maps to its executable path, or null when unavailable."
+    },
+    "windowsLinks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "These links connect Linux settings to the Windows profile."
+    }
+  }
+}

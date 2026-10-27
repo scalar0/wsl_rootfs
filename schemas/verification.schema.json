@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Restore verification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "checks",
+    "versions",
+    "ok",
+    "nextActions"
+  ],
+  "properties": {
+    "checks": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Check result",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "ok"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "$schema."
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      },
+      "description": "checks."
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "description": "$schema."
+      },
+      "description": "versions."
+    },
+    "ok": {
+      "type": "boolean",
+      "description": "ok."
+    },
+    "nextActions": {
+      "type": "array",
+      "description": "These actions address the failed checks.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "check",
+          "action"
+        ],
+        "properties": {
+          "check": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

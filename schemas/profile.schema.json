@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Restore profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "username",
+    "homeDirectory",
+    "reserveBytes",
+    "installBudgetBytes",
+    "backupDirectory",
+    "rustChannel",
+    "rustComponents",
+    "pythonVersion",
+    "optional",
+    "captureFiles",
+    "captureDirectories",
+    "secretKeys",
+    "basePackages",
+    "gitTestRemote",
+    "codexRulesRepository"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "The schema for this profile."
+    },
+    "username": {
+      "type": "string",
+      "pattern": "^[a-z_][a-z0-9_-]*$",
+      "description": "The Linux account that owns the development setup."
+    },
+    "homeDirectory": {
+      "type": "string",
+      "pattern": "^/home/[a-z_][a-z0-9_-]*$",
+      "description": "The home directory for the Linux account."
+    },
+    "reserveBytes": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "The free-space reserve on the Windows volume and the Linux file system."
+    },
+    "installBudgetBytes": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The initial space budget for downloads, toolchains, and builds."
+    },
+    "backupDirectory": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$",
+      "description": "The backup directory relative to the Windows profile."
+    },
+    "rustChannel": {
+      "type": "string",
+      "pattern": "^(stable|beta|nightly|[0-9]+\\.[0-9]+\\.[0-9]+)(-[0-9]{4}-[0-9]{2}-[0-9]{2})?$",
+      "description": "The Rust toolchain that rustup provides."
+    },
+    "rustComponents": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "$schema."
+      },
+      "description": "The Rust components that bootstrap requires."
+    },
+    "pythonVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "The exact Python version that uv installs."
+    },
+    "optional": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "title": "Optional tools",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "helpers",
+        "lighttpd"
+      ],
+      "properties": {
+        "helpers": {
+          "type": "boolean"
+        },
+        "lighttpd": {
+          "type": "boolean"
+        }
+      },
+      "description": "These switches select optional tools and services."
+    },
+    "captureFiles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          ".codex/config.toml",
+          ".codex/hooks.json",
+          ".codex/AGENTS.md",
+          ".codex/RTK.md",
+          ".config/nextest/config.toml",
+          ".config/uv/uv.toml"
+        ]
+      },
+      "description": "Capture accepts these settings files only."
+    },
+    "captureDirectories": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          ".codex/skills"
+        ]
+      },
+      "description": "Capture accepts user skill files from these directories."
+    },
+    "secretKeys": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "description": "$schema."
+      },
+      "description": "Capture refuses literal values in these credential fields."
+    },
+    "basePackages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9+.-]+$"
+      },
+      "description": "Ubuntu provides these base packages."
+    },
+    "gitTestRemote": {
+      "type": "string",
+      "pattern": "^git@github.com:[A-Za-z0-9_./-]+$",
+      "description": "The remote URL selects a conditional signing identity without a network request."
+    },
+    "codexRulesRepository": {
+      "type": "string",
+      "pattern": "^(git@github\\.com:|https://github\\.com/)[A-Za-z0-9_-]+/[A-Za-z0-9_.-]+$",
+      "description": "The personal GitHub repository that owns the Codex rules."
+    }
+  }
+}

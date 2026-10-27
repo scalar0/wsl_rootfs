@@ -1,0 +1,17 @@
+{
+  "github-access": "Run gh auth login.",
+  "codex-access": "Run codex login --device-auth.",
+  "1password-access": "Unlock 1Password on Windows. For Linux CLI access, configure an account before you start a session.",
+  "git-signing": "Unlock the Windows signing agent. Check the Git signing identity in the Windows profile.",
+  "plugin-login-required": "Complete Codex login before plugin installation.",
+  "plugin-marketplaces": "Check each configured marketplace source. If a source is local, clone its repository before retrying.",
+  "plugin:": "Check this plugin source and its required account access. Then retry account and plugin reconnection.",
+  ".config/git/": "Check the source file in the Windows profile. Then retry bootstrap.",
+  ".aws": "Check the AWS directory in the Windows profile.",
+  ".azure": "Check the Azure directory in the Windows profile.",
+  "disk-temporary-storage": "Check the configured temporary directory and its backing file system.",
+  "managed-python": "Install the Python version from the profile with uv.",
+  "default": "Retry bootstrap from the reviewed checkout. Check the reported command or path if the failure continues.",
+  "lighttpd-service": "Run bootstrap to install and start the selected service.",
+  "codex-rules": "Check the configured personal repository and GitHub access. Then retry rules installation."
+}

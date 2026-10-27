@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recovery messages",
+  "type": "object",
+  "required": [
+    "default"
+  ],
+  "additionalProperties": {
+    "type": "string",
+    "minLength": 1,
+    "description": "The next action for a failed check with this name or prefix."
+  }
+}

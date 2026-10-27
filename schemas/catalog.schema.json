@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Nix tool catalog",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "name",
+      "version",
+      "storePath",
+      "commands"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The Nix package name."
+      },
+      "version": {
+        "type": "string",
+        "description": "The tested package version."
+      },
+      "storePath": {
+        "type": "string",
+        "pattern": "^/nix/store/[a-z0-9]{32}-[^/]+$",
+        "description": "The package output in the Nix store."
+      },
+      "commands": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9+_.-]+$"
+        },
+        "description": "These commands must resolve to this package."
+      }
+    }
+  }
+}

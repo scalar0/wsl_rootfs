@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Repository deletion audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "createdAt",
+    "scope",
+    "offline",
+    "repositories",
+    "unmanagedFiles",
+    "safeToRemoveRepositories",
+    "vmDeletionApproved"
+  ],
+  "properties": {
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "created at."
+    },
+    "scope": {
+      "const": "repositories",
+      "description": "scope."
+    },
+    "offline": {
+      "type": "boolean",
+      "description": "offline."
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Repository check",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "blockers",
+          "details"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "$schema."
+          },
+          "blockers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "$schema."
+            },
+            "description": "rust components."
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "workingFiles": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "$schema."
+                },
+                "description": "rust components."
+              },
+              "ignoredFiles": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "$schema."
+                },
+                "description": "rust components."
+              },
+              "stashes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "$schema."
+                },
+                "description": "rust components."
+              },
+              "localRefs": {
+                "type": "array",
+                "items": {
+                  "$schema": "https://json-schema.org/draft/2020-12/schema",
+                  "title": "Local ref",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "oid",
+                    "name"
+                  ],
+                  "properties": {
+                    "oid": {
+                      "type": "string",
+                      "description": "$schema."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "$schema."
+                    }
+                  }
+                }
+              },
+              "checkedRemoteCount": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unverifiedObjects": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "$schema."
+                },
+                "description": "rust components."
+              },
+              "unreachableObjects": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "$schema."
+                },
+                "description": "rust components."
+              }
+            }
+          }
+        }
+      },
+      "description": "repositories."
+    },
+    "unmanagedFiles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "$schema."
+      },
+      "description": "rust components."
+    },
+    "safeToRemoveRepositories": {
+      "type": "boolean",
+      "description": "safe to remove repositories."
+    },
+    "vmDeletionApproved": {
+      "const": false,
+      "description": "vm deletion approved."
+    }
+  }
+}

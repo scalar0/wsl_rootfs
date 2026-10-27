@@ -1,0 +1,46 @@
+#!/usr/bin/env -S just --justfile
+
+set positional-arguments
+
+# Dispatch a hook to an opted-in repository recipe in the hooks group.
+project hook *git_args:
+    #!/bin/sh
+    set -eu
+
+    hook=$1
+    shift
+    case ":${JUST_GIT_HOOK_ACTIVE-}:" in
+      *":$hook:"*)
+        echo "refusing recursive git hook invocation: $hook" >&2
+        exit 1
+        ;;
+    esac
+    JUST_GIT_HOOK_ACTIVE="${JUST_GIT_HOOK_ACTIVE:+$JUST_GIT_HOOK_ACTIVE:}$hook"
+    export JUST_GIT_HOOK_ACTIVE
+
+    repo=$(git rev-parse --show-toplevel 2>/dev/null || true)
+    [ -n "$repo" ] || exit 0
+    enabled=$(git -C "$repo" config --local --bool --get hooks.just-enabled 2>/dev/null || true)
+    [ "$enabled" = true ] || exit 0
+
+    project_justfile=
+    for candidate in Justfile justfile .justfile; do
+      if [ -f "$repo/$candidate" ]; then
+        project_justfile="$repo/$candidate"
+        break
+      fi
+    done
+    if [ -z "$project_justfile" ]; then
+      echo "repository opted into Just hooks but has no Justfile: $repo" >&2
+      exit 1
+    fi
+
+    if just --justfile "$project_justfile" \
+      --list \
+      --group hooks \
+      --list-heading '' \
+      --list-prefix '' 2>/dev/null \
+      | awk -v recipe="$hook" '$1 == recipe { found = 1 } END { exit !found }'; then
+      cd "$repo"
+      exec just --justfile "$project_justfile" --timestamp --color=never "$hook" "$@"
+    fi

@@ -1,52 +1,35 @@
+[include]
+    path = ~/.config/git/windows.gitconfig
 [commit]
     gpgsign = true
     template = ~/.config/git/.gitcommit
-
 [gpg]
     format = ssh
-
-[include]
-    path = ~/.config/git/op.gitconfig
-
+[gpg "ssh"]
+    program = op-ssh-sign-wsl.exe
 [core]
-    editor = code --wait
     autocrlf = input
+    attributesFile = ~/.gitattributes
     sshCommand = ssh.exe
-
-[grep]
-    lineNumber = true
-    column = true
-    fallbackToNoIndex = true
-
+    hooksPath = ~/.config/git/hooks/bin
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
-
 [rerere]
     enabled = true
     autoUpdate = true
-
 [init]
     defaultBranch = master
-
 [includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
     path = ~/.config/git/gh.gitconfig
-
 [includeIf "hasconfig:remote.*.url:git@gitlab.com:*/**"]
     path = ~/.config/git/gl.gitconfig
-
-[diff]
-    guitool = vscode
-    tool = vscode
-
 [push]
     autoSetupRemote = true
-
 [merge]
     conflictStyle = diff3
-
 [merge "mergiraf"]
     name = mergiraf
     driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L

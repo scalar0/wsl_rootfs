@@ -1,0 +1,28 @@
+{
+  "$schema": "../schemas/artifacts.schema.json",
+  "aspect": {
+    "version": "2026.39.19",
+    "url": "https://github.com/aspect-build/aspect-cli/releases/download/v2026.39.19/aspect-launcher-x86_64-unknown-linux-musl",
+    "sha256": "d7e7daef9492db3be199ca7e3735567b66b41ccbeab64717ac42e45a16f7881e"
+  },
+  "depot": {
+    "version": "2.101.63",
+    "url": "https://github.com/depot/cli/releases/download/v2.101.63/depot_2.101.63_linux_amd64.tar.gz",
+    "sha256": "79061de301bd71b41825ba541c1226b2bacd75b6382a8b69ab7f7f5b9b3976e2"
+  },
+  "node": {
+    "version": "26.5.1",
+    "url": "https://nodejs.org/dist/v26.5.1/node-v26.5.1-linux-x64.tar.xz",
+    "sha256": "cc7b3484ade63bd203a9d304f21ec37a3b622b988d7bdecf1dc4d68fc44a91b7"
+  },
+  "coverage": {
+    "version": "0.8.7",
+    "url": "https://github.com/taiki-e/cargo-llvm-cov/releases/download/v0.8.7/cargo-llvm-cov-x86_64-unknown-linux-musl.tar.gz",
+    "sha256": "967b5cc996c29d8baa52bbb4595ef1f53af35255af8e2036ddbc6468d7b523c7"
+  },
+  "uv": {
+    "version": "0.13.6",
+    "url": "https://github.com/astral-sh/uv/releases/download/0.13.6/uv-x86_64-unknown-linux-musl.tar.gz",
+    "sha256": "5d61f26b6c7213779eda90edc6971ea6b0b796bfb8d49a574c8ad69b59838548"
+  }
+}

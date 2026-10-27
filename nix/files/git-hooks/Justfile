@@ -1,0 +1,35 @@
+#!/usr/bin/env -S just --justfile
+
+set positional-arguments
+
+mod dispatcher
+
+hooks_root := justfile_directory()
+hooks_path := hooks_root / "bin"
+dispatcher_justfile := hooks_root / "dispatcher/Justfile"
+
+# Validate a commit message with the personal conventional-commit policy.
+[group('hooks')]
+[no-exit-message]
+commit-msg file:
+    #!/bin/sh
+    set -eu
+    perl "{{hooks_root}}/commit-msg/main.pl" "$1"
+    exec just --working-directory "$PWD" --justfile "{{dispatcher_justfile}}" project commit-msg "$1"
+
+# Dispatch the pre-commit event to an opted-in project.
+[group('hooks')]
+[no-exit-message]
+pre-commit *git_args:
+    #!/bin/sh
+    set -eu
+    exec just --working-directory "$PWD" --justfile "{{dispatcher_justfile}}" project pre-commit "$@"
+
+# Dispatch the pre-push event to an opted-in project.
+[group('hooks')]
+[no-exit-message]
+pre-push remote location:
+    #!/bin/sh
+    set -eu
+    exec just --working-directory "$PWD" --justfile "{{dispatcher_justfile}}" project pre-push "$1" "$2"
+

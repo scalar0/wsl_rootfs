@@ -1,0 +1,6 @@
+{
+  "$schema": "../schemas/installer.schema.json",
+  "version": "2.34.3",
+  "system": "x86_64-linux",
+  "sha256": "7888ca3b586d026e149e866cda9ecb228811bd98d9f56b8c58a5e9106151ffd0"
+}

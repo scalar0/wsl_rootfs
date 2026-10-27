@@ -1,0 +1,8 @@
+--hidden
+--mmap
+--smart-case
+--sort-files
+--trim
+--glob=!.git/
+--glob=!node_modules/
+--glob=!.venv/

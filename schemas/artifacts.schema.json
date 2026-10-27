@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pinned upstream artifacts",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "aspect",
+    "depot",
+    "node",
+    "coverage",
+    "uv"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "aspect": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/aspect-build/aspect-cli/releases/download/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "version",
+        "url",
+        "sha256"
+      ]
+    },
+    "depot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/depot/cli/releases/download/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "version",
+        "url",
+        "sha256"
+      ]
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://nodejs\\.org/dist/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "version",
+        "url",
+        "sha256"
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/taiki-e/cargo-llvm-cov/releases/download/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "version",
+        "url",
+        "sha256"
+      ]
+    },
+    "uv": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://github\\.com/astral-sh/uv/releases/download/"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "version",
+        "url",
+        "sha256"
+      ]
+    }
+  }
+}

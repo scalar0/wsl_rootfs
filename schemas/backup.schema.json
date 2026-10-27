@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Settings backup",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "createdAt",
+    "username",
+    "archiveSha256",
+    "files",
+    "excluded",
+    "omittedSettings"
+  ],
+  "properties": {
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "created at."
+    },
+    "username": {
+      "type": "string",
+      "pattern": "^[a-z_][a-z0-9_-]*$",
+      "description": "username."
+    },
+    "archiveSha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "archive sha256."
+    },
+    "files": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "title": "Settings file",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "size",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$",
+            "description": "backup directory."
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8388608
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "mode": {
+            "type": "integer",
+            "enum": [
+              384,
+              448
+            ],
+            "default": 384,
+            "description": "Owner-only permissions preserve the executable bit. Older manifests use 0600."
+          }
+        }
+      },
+      "description": "files."
+    },
+    "excluded": {
+      "const": [
+        "repositories",
+        "credentials",
+        "agent-sessions",
+        "caches",
+        "toolchains"
+      ],
+      "description": "excluded."
+    },
+    "omittedSettings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Settings that the selected optional tool choices removed."
+    }
+  }
+}

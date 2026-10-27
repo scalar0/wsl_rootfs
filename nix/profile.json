@@ -1,0 +1,57 @@
+{
+  "$schema": "../schemas/profile.schema.json",
+  "username": "me",
+  "homeDirectory": "/home/me",
+  "reserveBytes": 21474836480,
+  "backupDirectory": "wsl-rootfs-backups",
+  "rustChannel": "stable",
+  "rustComponents": [
+    "clippy",
+    "llvm-tools",
+    "rust-src",
+    "rustfmt",
+    "rust-analyzer"
+  ],
+  "pythonVersion": "3.15.2",
+  "optional": {
+    "helpers": false,
+    "lighttpd": false
+  },
+  "captureFiles": [
+    ".codex/config.toml",
+    ".codex/AGENTS.md",
+    ".config/nextest/config.toml",
+    ".config/uv/uv.toml"
+  ],
+  "captureDirectories": [
+  ],
+  "secretKeys": [
+    "password",
+    "passwd",
+    "secret",
+    "token",
+    "api_key",
+    "apikey",
+    "access_key",
+    "private_key",
+    "client_secret",
+    "authorization",
+    "http_headers",
+    "bearer_token"
+  ],
+  "basePackages": [
+    "build-essential",
+    "libssl-dev",
+    "ca-certificates",
+    "curl",
+    "xz-utils",
+    "jq",
+    "git",
+    "tar",
+    "openssh-client",
+    "libatomic1"
+  ],
+  "installBudgetBytes": 21474836480,
+  "gitTestRemote": "git@github.com:scalar0/wsl_rootfs.git",
+  "codexRulesRepository": "git@github.com:scalar0/rules.git"
+}
